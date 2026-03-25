@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UConn Recommender Information - Tony White</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; padding: 20px; color: #333; }
+  .container { max-width: 640px; margin: 0 auto; background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); overflow: hidden; }
+  .header { background: linear-gradient(135deg, #000E2F, #002868); color: #fff; padding: 30px 32px; }
+  .header h1 { font-size: 22px; margin-bottom: 6px; }
+  .header p { font-size: 14px; opacity: 0.85; line-height: 1.5; }
+  .form-body { padding: 28px 32px; }
+  .field { margin-bottom: 20px; }
+  .field label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 6px; color: #1a1a1a; }
+  .field label .req { color: #c0392b; margin-left: 2px; }
+  .field input, .field select, .field textarea { width: 100%; padding: 10px 14px; border: 1.5px solid #d0d5dd; border-radius: 8px; font-size: 15px; font-family: inherit; transition: border-color 0.2s; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #002868; box-shadow: 0 0 0 3px rgba(0,40,104,0.1); }
+  .field .hint { font-size: 12px; color: #667; margin-top: 4px; }
+  .row { display: flex; gap: 16px; }
+  .row .field { flex: 1; }
+  .divider { border: none; border-top: 1px solid #e8eaed; margin: 24px 0; }
+  .btn-row { display: flex; gap: 12px; margin-top: 8px; }
+  .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .btn-primary { background: #002868; color: #fff; }
+  .btn-primary:hover { background: #001a4d; }
+  .btn-secondary { background: #e8eaed; color: #333; }
+  .btn-secondary:hover { background: #d0d5dd; }
+  .success { display: none; text-align: center; padding: 40px 32px; }
+  .success .checkmark { font-size: 48px; margin-bottom: 12px; }
+  .success h2 { font-size: 20px; margin-bottom: 8px; }
+  .success p { color: #667; font-size: 14px; }
+  .note-box { background: #f8f9fa; border-left: 4px solid #002868; padding: 12px 16px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 13px; line-height: 1.5; color: #555; }
+</style>
+</head>
+<body>
+<div class="container" id="formContainer">
+  <div class="header">
+    <h1>UConn Application — Recommender Info</h1>
+    <p>Hi! Tony White is applying to UConn and listed you as a recommender. Please fill out your information below so he can complete the application. Thank you!</p>
+  </div>
+  <div class="form-body">
+    <div class="note-box">
+      <strong>Note:</strong> Please use your institutional or corporate email address. Submissions from anonymous email addresses (Gmail, Hotmail, Yahoo) may be subject to additional review by UConn.
+    </div>
+
+    <div class="row">
+      <div class="field" style="flex: 0 0 120px;">
+        <label>Prefix</label>
+        <select id="prefix">
+          <option value="">—</option>
+          <option value="Mr.">Mr.</option>
+          <option value="Ms.">Ms.</option>
+          <option value="Mrs.">Mrs.</option>
+          <option value="Dr.">Dr.</option>
+          <option value="Prof.">Prof.</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>First Name<span class="req">*</span></label>
+        <input type="text" id="firstName" required>
+      </div>
+      <div class="field">
+        <label>Last Name<span class="req">*</span></label>
+        <input type="text" id="lastName" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Organization<span class="req">*</span></label>
+      <input type="text" id="organization" placeholder="e.g. Apollo Global Management">
+    </div>
+
+    <div class="field">
+      <label>Position / Title<span class="req">*</span></label>
+      <input type="text" id="position" placeholder="e.g. Vice President, Counterparty Management">
+    </div>
+
+    <div class="field">
+      <label>Relationship to Tony<span class="req">*</span></label>
+      <input type="text" id="relationship" placeholder="e.g. Direct Supervisor, Colleague, Professor">
+    </div>
+
+    <hr class="divider">
+
+    <div class="row">
+      <div class="field">
+        <label>Phone Number</label>
+        <input type="tel" id="phone" placeholder="(xxx) xxx-xxxx">
+      </div>
+      <div class="field">
+        <label>Email Address<span class="req">*</span></label>
+        <input type="email" id="email" placeholder="name@company.com">
+        <div class="hint">Use your work/institutional email, not personal.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field">
+      <label>Mailing Address <span style="font-weight:400;color:#667;">(optional)</span></label>
+      <textarea id="address" rows="2" placeholder="Street, City, State, ZIP"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Anything else Tony should know? <span style="font-weight:400;color:#667;">(optional)</span></label>
+      <textarea id="notes" rows="2" placeholder="e.g. preferred contact times, name spelling notes, etc."></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="submitForm()">Submit & Email to Tony</button>
+      <button class="btn btn-secondary" onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+  </div>
+</div>
+
+<div class="container success" id="successMsg">
+  <div class="checkmark">✅</div>
+  <h2>Thank you!</h2>
+  <p>Your information has been formatted. If the email client didn't open, please paste the copied text into an email to <strong>twchama@protonmail.com</strong>.</p>
+</div>
+
+<script>
+function getFormData() {
+  return {
+    prefix: document.getElementById('prefix').value,
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    organization: document.getElementById('organization').value.trim(),
+    position: document.getElementById('position').value.trim(),
+    relationship: document.getElementById('relationship').value.trim(),
+    phone: document.getElementById('phone').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    address: document.getElementById('address').value.trim(),
+    notes: document.getElementById('notes').value.trim()
+  };
+}
+
+function validate(d) {
+  if (!d.firstName || !d.lastName || !d.organization || !d.position || !d.relationship || !d.email) {
+    alert('Please fill in all required fields (marked with *).');
+    return false;
+  }
+  return true;
+}
+
+function formatText(d) {
+  let lines = [
+    '=== UConn Recommender Information ===',
+    '',
+    'Prefix: ' + (d.prefix || 'N/A'),
+    'First Name: ' + d.firstName,
+    'Last Name: ' + d.lastName,
+    'Organization: ' + d.organization,
+    'Position/Title: ' + d.position,
+    'Relationship: ' + d.relationship,
+    'Phone: ' + (d.phone || 'N/A'),
+    'Email: ' + d.email
+  ];
+  if (d.address) lines.push('Address: ' + d.address);
+  if (d.notes) lines.push('Notes: ' + d.notes);
+  return lines.join('\n');
+}
+
+function submitForm() {
+  const d = getFormData();
+  if (!validate(d)) return;
+  const body = formatText(d);
+  const subject = 'UConn Recommender Info - ' + d.firstName + ' ' + d.lastName;
+  const mailto = 'mailto:twchama@protonmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  window.location.href = mailto;
+  // Also copy to clipboard as backup
+  navigator.clipboard.writeText(body).catch(() => {});
+  document.getElementById('formContainer').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+
+function copyToClipboard() {
+  const d = getFormData();
+  if (!validate(d)) return;
+  const text = formatText(d);
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Copied! Paste this into an email to twchama@protonmail.com');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Copied! Paste this into an email to twchama@protonmail.com');
+  });
+}
+</script>
+</body>
+</html>
